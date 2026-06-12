@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Abin Cheriyan — Business Architecture Senior Analyst</title>
+<meta name="description" content="Abin Cheriyan — Business Architecture Senior Analyst, Accenture Technology Development Program. Identity governance (SailPoint / IAM) and program delivery across telecom, health sciences, banking, and consumer goods." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0C0F12;
+    --ink-2:#14181D;
+    --ink-3:#1C222A;
+    --paper:#F9FAF8;
+    --card:#FFFFFF;
+    --text:#161B20;
+    --text-soft:#46505A;
+    --muted:#79828B;
+    --hair:#E6E8E2;
+    --hair-2:#EFF0EC;
+    --hair-dark:rgba(255,255,255,.10);
+    --hair-dark-2:rgba(255,255,255,.05);
+    --green:#6BCB1F;
+    --green-deep:#2F7A0B;
+    --green-tint:#EEF8E1;
+    --green-on-dark:#84E22B;
+
+    --display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+
+    --maxw:1180px;
+    --gutter:clamp(20px,5vw,72px);
+    --bar-h:60px;
+    --r:14px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--body);
+    color:var(--text);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--green);color:var(--ink);}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter);width:100%;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:inline-flex;align-items:center;gap:.6em;
+    margin:0;
+  }
+  .eyebrow .mark{
+    width:7px;height:7px;background:var(--green);
+    transform:rotate(45deg);flex:none;
+  }
+
+  /* ---------- top bar ---------- */
+  .bar{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    height:var(--bar-h);
+    display:flex;align-items:center;
+    background:rgba(12,15,18,0);
+    border-bottom:1px solid transparent;
+    transition:background .35s ease,border-color .35s ease,backdrop-filter .35s ease;
+  }
+  .bar.is-stuck{
+    background:rgba(12,15,18,.82);
+    backdrop-filter:saturate(140%) blur(10px);
+    -webkit-backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--hair-dark);
+  }
+  .bar__inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
+  .bar__name{
+    font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+    color:#fff;opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s;
+    display:flex;align-items:center;gap:.6em;text-decoration:none;
+  }
+  .bar.is-stuck .bar__name{opacity:1;transform:none;}
+  .bar__name .mark{width:7px;height:7px;background:var(--green);transform:rotate(45deg);}
+  .bar__cta{
+    display:inline-flex;align-items:center;gap:.55em;
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;
+    color:var(--ink);background:var(--green);
+    padding:.5em .95em;border-radius:999px;text-decoration:none;font-weight:500;
+    opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s,filter .2s;
+  }
+  .bar.is-stuck .bar__cta{opacity:1;transform:none;}
+  .bar__cta:hover{filter:brightness(1.06);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    background:var(--ink);
+    color:#fff;
+    overflow:hidden;
+    padding-top:calc(var(--bar-h) + clamp(46px,9vw,104px));
+    padding-bottom:clamp(54px,9vw,108px);
+  }
+  .hero::before{ /* faint blueprint grid */
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--hair-dark-2) 1px,transparent 1px),
+      linear-gradient(90deg,var(--hair-dark-2) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(120% 120% at 80% 0%,#000 30%,transparent 78%);
+            mask-image:radial-gradient(120% 120% at 80% 0%,#000 30%,transparent 78%);
+    pointer-events:none;
+  }
+  .hero::after{ /* depth glow, very subtle */
+    content:"";position:absolute;top:-30%;right:-12%;
+    width:60vw;height:60vw;max-width:760px;max-height:760px;
+    background:radial-gradient(circle at center,rgba(107,203,31,.16),transparent 62%);
+    pointer-events:none;
+  }
+  .hero__inner{position:relative;z-index:2;}
+  .hero .eyebrow{color:#aeb6bd;}
+  .hero__name{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(2.9rem,10.5vw,7rem);
+    line-height:.92;letter-spacing:-.02em;
+    margin:.5rem 0 0;
+    text-transform:uppercase;
+  }
+  .hero__role{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(1.05rem,2.6vw,1.6rem);
+    margin:.85rem 0 0;color:#fff;letter-spacing:-.01em;
+  }
+  .hero__role span{color:var(--green-on-dark);}
+  .hero__lede{
+    max-width:54ch;margin:1.3rem 0 0;
+    color:#c7cdd3;font-size:clamp(1rem,1.5vw,1.12rem);
+  }
+  .hero__lede strong{color:#fff;font-weight:600;}
+
+  .hero__meta{
+    display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.7rem;
+  }
+  .chip{
+    display:inline-flex;align-items:center;gap:.55em;
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;
+    border:1px solid var(--hair-dark);
+    background:rgba(255,255,255,.03);
+    padding:.5em .9em;border-radius:999px;color:#d7dce0;
+  }
+  .chip .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:none;}
+  .chip--live .dot{box-shadow:0 0 0 0 rgba(107,203,31,.55);animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(107,203,31,.5);}70%{box-shadow:0 0 0 9px rgba(107,203,31,0);}100%{box-shadow:0 0 0 0 rgba(107,203,31,0);}}
+
+  .hero__actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.9rem;align-items:center;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.6em;
+    font-family:var(--body);font-weight:600;font-size:.95rem;
+    padding:.78em 1.25em;border-radius:999px;text-decoration:none;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s ease,filter .2s ease,background .2s ease,border-color .2s ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn--primary{background:var(--green);color:var(--ink);}
+  .btn--primary:hover{filter:brightness(1.06);}
+  .btn--ghost{background:transparent;color:#fff;border-color:var(--hair-dark);font-family:var(--mono);font-weight:500;font-size:.85rem;}
+  .btn--ghost:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.04);}
+  .btn svg{width:1.05em;height:1.05em;}
+  .copied{font-family:var(--mono);font-size:.78rem;color:var(--green-on-dark);opacity:0;transition:opacity .25s;}
+  .copied.show{opacity:1;}
+
+  /* ---------- impact band ---------- */
+  .impact{
+    background:var(--ink-2);
+    border-top:1px solid var(--hair-dark);
+    padding:clamp(34px,5vw,52px) 0;
+    color:#fff;
+  }
+  .impact__head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem;}
+  .impact__head .eyebrow{color:#9aa2a9;}
+  .impact__note{font-family:var(--mono);font-size:.78rem;color:#7f888f;letter-spacing:.04em;}
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--hair-dark);border:1px solid var(--hair-dark);border-radius:var(--r);overflow:hidden;
+  }
+  .stat{background:var(--ink-2);padding:1.4rem 1.4rem 1.55rem;display:flex;flex-direction:column;gap:.35rem;}
+  .stat__num{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.4vw,2.9rem);line-height:1;color:#fff;letter-spacing:-.02em;}
+  .stat__num em{font-style:normal;color:var(--green-on-dark);}
+  .stat__label{font-size:.86rem;color:#aab1b8;line-height:1.45;}
+
+  /* ---------- main layout ---------- */
+  .main{padding:clamp(48px,7vw,92px) 0 0;}
+  .layout{display:grid;grid-template-columns:312px 1fr;gap:clamp(36px,5vw,72px);align-items:start;}
+
+  .rail{position:sticky;top:calc(var(--bar-h) + 22px);display:flex;flex-direction:column;gap:18px;}
+  .panel{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:1.35rem 1.4rem 1.5rem;}
+  .panel + .panel{margin-top:0;}
+  .panel__title{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 1.05rem;display:flex;align-items:center;gap:.6em;
+  }
+  .panel__title .mark{width:6px;height:6px;background:var(--green);transform:rotate(45deg);flex:none;}
+
+  .field{margin:0 0 1.05rem;}
+  .field:last-child{margin-bottom:0;}
+  .field__k{font-size:.74rem;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:.06em;margin:0 0 .45rem;font-family:var(--mono);}
+  .field__v{margin:0;color:var(--text-soft);font-size:.94rem;}
+  .field__v.lead{color:var(--text);font-weight:500;}
+
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:.55rem 0 0;padding:0;list-style:none;}
+  .tags li{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.01em;
+    border:1px solid var(--hair);background:#fff;color:var(--text-soft);
+    padding:.34em .65em;border-radius:7px;
+  }
+  .tags li.is-key{background:var(--green-tint);border-color:#D6EEBE;color:var(--green-deep);font-weight:500;}
+
+  .certs{list-style:none;margin:0;padding:0;}
+  .certs li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem 0;border-top:1px solid var(--hair-2);font-size:.92rem;color:var(--text);}
+  .certs li:first-child{border-top:0;padding-top:0;}
+  .certs .ico{width:18px;height:18px;flex:none;margin-top:.12rem;color:var(--green-deep);}
+
+  .contact-row{display:flex;gap:.7rem;align-items:flex-start;font-size:.94rem;margin:0 0 .9rem;}
+  .contact-row:last-of-type{margin-bottom:1.1rem;}
+  .contact-row .ico{width:17px;height:17px;flex:none;margin-top:.18rem;color:var(--muted);}
+  .contact-row a{color:var(--text);text-decoration:none;border-bottom:1.5px solid var(--green);padding-bottom:1px;word-break:break-word;}
+  .contact-row a:hover{color:var(--green-deep);}
+  .contact-row .k{display:block;font-size:.72rem;color:var(--muted);font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.1rem;}
+  .panel .btn--rail{width:100%;justify-content:center;background:var(--ink);color:#fff;font-size:.9rem;}
+  .panel .btn--rail:hover{background:var(--ink-3);}
+
+  /* ---------- experience / timeline ---------- */
+  .exp__head{margin:0 0 2.1rem;}
+  .exp__title{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-.02em;margin:.5rem 0 0;line-height:1.05;}
+  .exp__sub{color:var(--text-soft);margin:.7rem 0 0;max-width:60ch;}
+
+  .timeline{position:relative;padding-left:34px;}
+  .timeline__track{position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--hair);border-radius:2px;}
+  .timeline__progress{position:absolute;left:6px;top:6px;width:2px;height:0;background:var(--green);border-radius:2px;transition:height .12s linear;}
+
+  .node{position:relative;padding-bottom:2.4rem;}
+  .node:last-child{padding-bottom:0;}
+  .node__dot{
+    position:absolute;left:-34px;top:5px;width:14px;height:14px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--hair);transform:translateX(-1px);
+    transition:border-color .4s ease,background .4s ease,box-shadow .4s ease;z-index:2;
+  }
+  .node.is-on .node__dot{border-color:var(--green);background:var(--green);box-shadow:0 0 0 4px var(--green-tint);}
+
+  .card{
+    background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+    padding:1.4rem 1.55rem 1.5rem;
+    transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s ease,box-shadow .25s ease,border-color .25s ease;
+    opacity:0;transform:translateY(18px);
+  }
+  .card.is-in{opacity:1;transform:none;}
+  .card:hover{box-shadow:0 14px 40px -22px rgba(16,24,32,.4);border-color:#D9DCD4;}
+
+  .card__top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;}
+  .card__client{font-family:var(--display);font-weight:700;font-size:1.22rem;letter-spacing:-.01em;margin:0;line-height:1.2;}
+  .card__date{
+    font-family:var(--mono);font-size:.76rem;color:var(--text-soft);letter-spacing:.01em;
+    border:1px solid var(--hair);background:var(--paper);padding:.34em .7em;border-radius:7px;white-space:nowrap;flex:none;
+  }
+  .card__role{font-weight:600;color:var(--green-deep);margin:.5rem 0 0;font-size:.98rem;}
+  .card__list{margin:1rem 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+  .card__list li{position:relative;padding-left:1.25rem;color:var(--text-soft);font-size:.95rem;}
+  .card__list li::before{
+    content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;
+    background:var(--green);transform:rotate(45deg);
+  }
+  .card__list b{color:var(--text);font-weight:600;}
+  .card__tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.1rem 0 0;padding:.95rem 0 0;border-top:1px solid var(--hair-2);list-style:none;}
+  .card__tags li{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.02em;}
+  .card__tags li::after{content:"·";margin-left:.4rem;color:var(--hair);}
+  .card__tags li:last-child::after{content:"";}
+
+  /* ---------- footer ---------- */
+  .foot{background:var(--ink);color:#fff;margin-top:clamp(56px,8vw,104px);padding:clamp(54px,8vw,96px) 0 clamp(34px,5vw,46px);position:relative;overflow:hidden;}
+  .foot::after{content:"";position:absolute;bottom:-30%;left:-8%;width:50vw;height:50vw;max-width:620px;max-height:620px;background:radial-gradient(circle at center,rgba(107,203,31,.12),transparent 60%);pointer-events:none;}
+  .foot__inner{position:relative;z-index:2;}
+  .foot .eyebrow{color:#9aa2a9;}
+  .foot__h{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5.5vw,3.4rem);letter-spacing:-.02em;margin:.6rem 0 0;line-height:1.02;}
+  .foot__h span{color:var(--green-on-dark);}
+  .foot__actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:1.9rem;}
+  .foot__email{font-family:var(--mono);font-size:.92rem;color:#c7cdd3;border-bottom:1.5px solid var(--green);padding-bottom:2px;text-decoration:none;}
+  .foot__email:hover{color:#fff;}
+  .foot__meta{display:flex;flex-wrap:wrap;gap:1.4rem 2.4rem;margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--hair-dark);font-family:var(--mono);font-size:.76rem;color:#7f888f;letter-spacing:.03em;}
+  .foot__meta span strong{color:#c7cdd3;font-weight:500;}
+
+  /* ---------- reveal on load ---------- */
+  .rise{opacity:0;transform:translateY(14px);}
+  .rise.show{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+
+  /* ---------- focus ---------- */
+  a:focus-visible,.btn:focus-visible,button:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:880px){
+    .layout{grid-template-columns:1fr;gap:32px;}
+    .rail{position:static;top:auto;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:520px){
+    .stats{grid-template-columns:1fr 1fr;}
+    .stat{padding:1.15rem 1rem 1.25rem;}
+    .card__top{flex-direction:column;gap:.55rem;}
+    .hero__actions{gap:.6rem;}
+    .btn{font-size:.9rem;}
+    .bar__cta span.full{display:none;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{animation:none !important;}
+    .rise,.card{opacity:1 !important;transform:none !important;transition:none !important;}
+    .timeline__progress{transition:none;}
+    .chip--live .dot{animation:none;}
+  }
+
+  /* ---------- print (turns the page back into a clean one-pager) ---------- */
+  @media print{
+    .bar,.hero__actions,.foot__actions,.copied,.panel .btn--rail{display:none !important;}
+    body{background:#fff;color:#000;}
+    .hero,.impact,.foot{background:#fff !important;color:#000 !important;}
+    .hero::before,.hero::after,.foot::after{display:none !important;}
+    .hero .eyebrow,.impact__head .eyebrow,.foot .eyebrow{color:#444 !important;}
+    .hero__name,.hero__role,.foot__h{color:#000 !important;}
+    .stat,.impact{border-color:#ccc !important;}
+    .stat__num,.stat__label,.impact__note,.hero__lede,.hero__role span,.foot__h span,.stat__num em{color:#000 !important;}
+    .card{opacity:1 !important;transform:none !important;box-shadow:none !important;break-inside:avoid;}
+    .timeline__progress{background:#888 !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- sticky bar -->
+<header class="bar" id="bar">
+  <div class="wrap bar__inner">
+    <a href="#top" class="bar__name"><span class="mark"></span>Abin Cheriyan</a>
+    <a href="mailto:abin.cheriyan@accenture.com?subject=Staffing%20opportunity" class="bar__cta">
+      <span class="full">Email&nbsp;</span>Abin
+    </a>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="hero" id="top">
+  <div class="wrap hero__inner">
+    <p class="eyebrow rise"><span class="mark"></span>Technology Development Program · Philadelphia Market Unit</p>
+    <h1 class="hero__name rise">Abin&nbsp;Cheriyan</h1>
+    <p class="hero__role rise">Business Architecture Senior Analyst<br />Focus: <span>Identity &amp; Access Governance — SailPoint / IAM</span></p>
+    <p class="hero__lede rise">I keep complex enterprise transformations on track — <strong>cutovers, readiness gates, and identity onboarding</strong> — turning moving parts into measurable, on-time delivery across telecom, health sciences, banking, and consumer goods.</p>
+
+    <div class="hero__meta rise">
+      <span class="chip chip--live"><span class="dot"></span>Available for staffing</span>
+      <span class="chip"><span class="dot"></span>Security · Identity governance</span>
+      <span class="chip"><span class="dot"></span>Program &amp; PMO delivery</span>
+    </div>
+
+    <div class="hero__actions rise">
+      <a class="btn btn--primary" href="mailto:abin.cheriyan@accenture.com?subject=Staffing%20opportunity">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+        Email Abin
+      </a>
+      <button class="btn btn--ghost" id="copyBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        abin.cheriyan@accenture.com
+      </button>
+      <span class="copied" id="copied">Copied</span>
+    </div>
+  </div>
+</section>
+
+<!-- impact band -->
+<section class="impact">
+  <div class="wrap">
+    <div class="impact__head">
+      <p class="eyebrow"><span class="mark" style="background:var(--green)"></span>Selected impact</p>
+      <p class="impact__note">Since 2022 · 6 engagements · 4 industries</p>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat__num"><em>~80</em></span>
+        <span class="stat__label">application teams driven to readiness on SailPoint ISC onboarding</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">20<em>+</em></span>
+        <span class="stat__label">stakeholder teams aligned for NYDFS ransomware-recovery testing</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num"><em>98%</em></span>
+        <span class="stat__label">success on a 3,000+ task S/4HANA cutover</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num"><em>50%</em></span>
+        <span class="stat__label">faster project transitions via a BPA stage-gate file</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- main -->
+<main class="main">
+  <div class="wrap">
+    <div class="layout">
+
+      <!-- left rail -->
+      <aside class="rail" aria-label="Profile details">
+
+        <div class="panel">
+          <p class="panel__title"><span class="mark"></span>Relevant skills</p>
+          <div class="field">
+            <p class="field__k">Alignment</p>
+            <p class="field__v lead">Technology Development Program (TDP)</p>
+          </div>
+          <div class="field">
+            <p class="field__k">Functional / Technical</p>
+            <ul class="tags">
+              <li class="is-key">SailPoint ISC</li>
+              <li class="is-key">MyNav Migrate</li>
+              <li>Client Relationship Mgmt</li>
+              <li>Customer Service &amp; Delivery</li>
+              <li>Data Analysis</li>
+              <li>Data Visualization</li>
+              <li>MS Office Apps</li>
+            </ul>
+          </div>
+          <div class="field">
+            <p class="field__k">Industries</p>
+            <ul class="tags">
+              <li>Consumer Goods &amp; Services</li>
+              <li>Banking</li>
+              <li>Health Sciences</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="panel">
+          <p class="panel__title"><span class="mark"></span>Certifications</p>
+          <ul class="certs">
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              SailPoint ISC Leader
+            </li>
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              SailPoint ISC Professional
+            </li>
+            <li>
+              <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              ISO 27001:2022 Tech Lead Auditor
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <p class="panel__title"><span class="mark"></span>Background</p>
+          <div class="field">
+            <p class="field__k">Education</p>
+            <p class="field__v lead">Temple University — May 2022</p>
+            <p class="field__v">B.S. Computer Science<br />Certificate: Computer Security &amp; Digital Forensics</p>
+          </div>
+          <div class="field">
+            <p class="field__k">Interests</p>
+            <p class="field__v">Security — SailPoint, Identity &amp; Access Management</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <p class="panel__title"><span class="mark"></span>Get in touch</p>
+          <div class="contact-row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span><span class="k">Office</span>Philadelphia</span>
+          </div>
+          <div class="contact-row">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+            <span><span class="k">Email</span><a href="mailto:abin.cheriyan@accenture.com?subject=Staffing%20opportunity">abin.cheriyan@accenture.com</a></span>
+          </div>
+          <a class="btn btn--rail" href="mailto:abin.cheriyan@accenture.com?subject=Staffing%20opportunity">Discuss an engagement</a>
+        </div>
+
+      </aside>
+
+      <!-- experience -->
+      <section class="exp" aria-label="Project experience">
+        <header class="exp__head">
+          <p class="eyebrow"><span class="mark"></span>Project experience</p>
+          <h2 class="exp__title">A track record of on-time delivery</h2>
+          <p class="exp__sub">Six engagements across four industries — moving from SAP deployment into banking transformation, security &amp; compliance, PMO, readiness, and identity governance.</p>
+        </header>
+
+        <div class="timeline" id="timeline">
+          <div class="timeline__track"></div>
+          <div class="timeline__progress" id="progress"></div>
+
+          <!-- 1 -->
+          <article class="node">
+            <span class="node__dot"></span>
+            <div class="card">
+              <div class="card__top">
+                <h3 class="card__client">Large Telecommunications Company</h3>
+                <span class="card__date">Oct 2025 – Feb 2026</span>
+              </div>
+              <p class="card__role">SailPoint App Onboarding Analyst</p>
+              <ul class="card__list">
+                <li>Designed process flows and authored technical documentation — <b>connectors, HR source, and JML</b> — to enable secure integrations and identity governance across all scoped applications.</li>
+                <li>Shaped the SailPoint ISC onboarding roadmap, defining timelines and integration best practices for all scoped applications.</li>
+                <li>Drove the onboarding cadence — leading AOB calls and daily stand-ups and driving action items to closure across Teams and email — to keep <b>~80 app teams</b> moving to readiness.</li>
+                <li>Maintained program tracking and reporting — <b>onboarding tracker, status reports, RAID log, and dashboards</b> — keeping risks, issues, and progress visible to stakeholders.</li>
+                <li>Coordinated daily with the offshore team and ran escalation calls with functional teams to unblock stalled onboardings and keep delivery aligned across time zones.</li>
+              </ul>
+              <ul class="card__tags">
+                <li>SailPoint ISC</li><li>IAM</li><li>Identity governance</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="node">
+            <span class="node__dot"></span>
+            <div class="card">
+              <div class="card__top">
+                <h3 class="card__client">Large Health Sciences Company</h3>
+                <span class="card__date">Mar 2025 – Aug 2025</span>
+              </div>
+              <p class="card__role">Integrated Readiness Support</p>
+              <ul class="card__list">
+                <li>Helped design the <b>Integrated Readiness Framework</b>, including toll-gate reviews and phase transitions for smooth program execution.</li>
+                <li>Coordinated readiness across <b>6 concurrent sites</b>, aligning workstreams to milestones and tracking metrics, risks, and mitigation plans.</li>
+                <li>Drove stakeholder engagement through structured forums and maintained readiness documentation for transparency.</li>
+              </ul>
+              <ul class="card__tags">
+                <li>Readiness framework</li><li>Multi-site</li><li>PMO</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="node">
+            <span class="node__dot"></span>
+            <div class="card">
+              <div class="card__top">
+                <h3 class="card__client">Large Health Sciences Company</h3>
+                <span class="card__date">Feb 2025 – Mar 2025</span>
+              </div>
+              <p class="card__role">PMO Support Analyst</p>
+              <ul class="card__list">
+                <li>Supported the Global PMO Lead across daily operations to keep execution and communication clear across teams.</li>
+                <li>Built and maintained OSC and OPS decks plus meeting records for timely, accurate client updates.</li>
+                <li>Designed a BPA-compliant stage-gate file that <b>cut project transition time by 50%</b>.</li>
+              </ul>
+              <ul class="card__tags">
+                <li>PMO</li><li>Process design</li><li>Stage gates</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="node">
+            <span class="node__dot"></span>
+            <div class="card">
+              <div class="card__top">
+                <h3 class="card__client">Large Financial Institution</h3>
+                <span class="card__date">Sep 2024 – Dec 2024</span>
+              </div>
+              <p class="card__role">Application Coordination / Assessment Manager</p>
+              <ul class="card__list">
+                <li>Supported <b>NYDFS compliance</b> — built MyNav questionnaires for ransomware recovery planning and testing, streamlined inventory, and validated infrastructure mappings.</li>
+                <li>Partnered with <b>20+ stakeholder teams</b> to gather inputs, bundle recovery tests, and coach application teams on recovery best practices.</li>
+              </ul>
+              <ul class="card__tags">
+                <li>Security</li><li>NYDFS compliance</li><li>MyNav</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 5 -->
+          <article class="node">
+            <span class="node__dot"></span>
+            <div class="card">
+              <div class="card__top">
+                <h3 class="card__client">Large Financial Institution</h3>
+                <span class="card__date">Apr 2024 – Sep 2024</span>
+              </div>
+              <p class="card__role">Banking Transformation Analyst</p>
+              <ul class="card__list">
+                <li>Captured and validated client information and onboarded <b>40+ FRB clients in under two months</b>, integrating diverse banking products.</li>
+                <li>Delivered pre- and post-transformation support at <b>95% user satisfaction</b>, reducing transition time <b>25%</b> through metrics-driven change initiatives.</li>
+              </ul>
+              <ul class="card__tags">
+                <li>Banking transformation</li><li>Client onboarding</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- 6 -->
+          <article class="node">
+            <span class="node__dot"></span>
+            <div class="card">
+              <div class="card__top">
+                <h3 class="card__client">Large Consumer Goods &amp; Services Company</h3>
+                <span class="card__date">Oct 2022 – Apr 2024</span>
+              </div>
+              <p class="card__role">Deployment Business Analyst · S/4 HANA Transformation</p>
+              <ul class="card__list">
+                <li>Supported two major implementations at a <b>98% success rate on a 3,000+ task cutover</b>.</li>
+                <li>Drove cross-workstream planning, ramp-down readiness, stakeholder alignment, and reporting improvements using <b>Excel and Power BI</b>.</li>
+              </ul>
+              <ul class="card__tags">
+                <li>SAP S/4HANA</li><li>Deployment</li><li>Power BI</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- footer CTA -->
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p class="eyebrow"><span class="mark" style="background:var(--green)"></span>Open to new work</p>
+    <h2 class="foot__h">Have an engagement that needs a <span>steady pair of hands?</span></h2>
+    <div class="foot__actions">
+      <a class="btn btn--primary" href="mailto:abin.cheriyan@accenture.com?subject=Staffing%20opportunity">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+        Email Abin
+      </a>
+      <a class="foot__email" href="mailto:abin.cheriyan@accenture.com?subject=Staffing%20opportunity">abin.cheriyan@accenture.com</a>
+    </div>
+    <div class="foot__meta">
+      <span><strong>Abin Cheriyan</strong></span>
+      <span>Business Architecture Senior Analyst</span>
+      <span>Technology Development Program</span>
+      <span>Philadelphia Market Unit</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* mark decorative icons as hidden from assistive tech */
+  Array.prototype.forEach.call(document.querySelectorAll('svg:not([aria-label])'), function(s){
+    s.setAttribute('aria-hidden','true'); s.setAttribute('focusable','false');
+  });
+
+  /* sticky bar state */
+  var bar = document.getElementById('bar');
+  var onScrollBar = function(){
+    if(window.scrollY > 80){ bar.classList.add('is-stuck'); }
+    else{ bar.classList.remove('is-stuck'); }
+  };
+  onScrollBar();
+  window.addEventListener('scroll', onScrollBar, {passive:true});
+
+  /* hero load-in stagger */
+  var rises = Array.prototype.slice.call(document.querySelectorAll('.hero .rise'));
+  if(reduce){ rises.forEach(function(el){el.classList.add('show');}); }
+  else {
+    rises.forEach(function(el,i){
+      setTimeout(function(){ el.classList.add('show'); }, 90 + i*95);
+    });
+  }
+
+  /* copy email */
+  var copyBtn = document.getElementById('copyBtn');
+  var copied = document.getElementById('copied');
+  if(copyBtn){
+    copyBtn.addEventListener('click', function(){
+      var email = 'abin.cheriyan@accenture.com';
+      var done = function(){
+        copied.classList.add('show');
+        setTimeout(function(){ copied.classList.remove('show'); }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(email).then(done).catch(done);
+      } else {
+        var t=document.createElement('textarea'); t.value=email; document.body.appendChild(t);
+        t.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(t); done();
+      }
+    });
+  }
+
+  /* reveal cards + activate timeline dots */
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.node'));
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add('is-in');
+          var node = en.target.closest('.node');
+          if(node) node.classList.add('is-on');
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold:0.18, rootMargin:'0px 0px -8% 0px'});
+    cards.forEach(function(c){ io.observe(c); });
+  } else {
+    cards.forEach(function(c){ c.classList.add('is-in'); });
+    nodes.forEach(function(n){ n.classList.add('is-on'); });
+  }
+
+  /* scroll-linked timeline progress fill */
+  var timeline = document.getElementById('timeline');
+  var progress = document.getElementById('progress');
+  if(timeline && progress && !reduce){
+    var ticking = false;
+    var update = function(){
+      ticking = false;
+      var rect = timeline.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var anchor = vh * 0.5;
+      var total = rect.height;
+      var filled = anchor - rect.top;
+      var ratio = Math.max(0, Math.min(1, filled / total));
+      progress.style.height = (ratio * total) + 'px';
+    };
+    var req = function(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', req, {passive:true});
+    window.addEventListener('resize', req);
+    update();
+  }
+})();
+</script>
+</body>
+</html>
